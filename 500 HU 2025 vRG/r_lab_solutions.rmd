@@ -1,0 +1,216 @@
+---
+title: "Lab 01 R Learning"
+author: "Ravina Gaikwad 328648"
+date: "`r Sys.Date()`"
+output: 
+  word_document:
+    reference_docx: default
+---
+
+```{r machine-info, echo=FALSE, results='asis'}
+cat("**Machine:**", paste0(Sys.info()['nodename'], " - ", Sys.info()['sysname'], " ", Sys.info()['release']), "\n\n")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Set machine info for document
+machine_info <- paste0(Sys.info()['nodename'], ' - ', Sys.info()['sysname'], ' ', Sys.info()['release'])
+```
+
+# Logical Operators: 
+
+1.	Use logical operations to get R to agree that "two plus two equals 5" is FALSE.
+
+```{r q1}
+2 + 2 == 5
+```
+
+2.	Use logical operations to test whether 8 ^ 13 is less than 15 ^ 9.
+
+```{r q2}
+8 ^ 13 < 15 ^ 9
+```
+
+# Variables:
+
+3.	Create a variable called potato whose value corresponds to the number of potatoes you've eaten in the last week. Or something equally ridiculous. Print out the value of potato.
+
+```{r q3}
+potato <- 7
+potato
+```
+
+4.	Calculate the square root of potato using the sqrt() function. Print out the value of potato again to verify that the value of potato hasn't changed.
+
+```{r q4}
+sqrt(potato)
+potato
+```
+
+5.	Reassign the value of potato to potato * 2. Print out the new value of potato to verify that it has changed.
+
+```{r q5}
+potato <- potato * 2
+potato
+```
+
+6.	Try making a character (string) variable and a logical variable . Try creating a variable with a "missing" value NA. You can call these variables whatever you would like. Use class(variablename) to make sure they are the right type of variable. 
+
+```{r q6}
+my_string <- "Hello World"
+my_logical <- TRUE
+my_missing <- NA
+
+class(my_string)
+class(my_logical)
+class(my_missing)
+```
+
+# Vectors:
+
+7.	Create a numeric vector with three elements using c().
+
+```{r q7}
+my_vector <- c(5, 10, 15)
+my_vector
+```
+
+8.	Create a character vector with three elements using c().
+
+```{r q8}
+char_vector <- c("apple", "banana", "cherry")
+char_vector
+```
+
+9.	Create a numeric vector called age whose elements contain the ages of three people you know, where the names of each element correspond to the names of those people.
+
+```{r q9}
+age <- c(Alice = 25, Bob = 30, Charlie = 28)
+age
+```
+
+10.	Use "indexing by number" to get R to print out the first element of one of the vectors you created in the last questions.
+
+```{r q10}
+age[1]
+```
+
+11.	Use logical indexing to return all the ages of all people in age greater than 20.
+
+```{r q11}
+age[age > 20]
+```
+
+12.	Use indexing by name to return the age of one of the people whose ages you've stored in age
+
+```{r q12}
+age["Alice"]
+```
+
+# Matrices:
+
+
+
+# Dataframes:
+
+13.	Load the airquality dataset. 
+14. Use the $ method to print out the Wind variable in airquality.
+15.	Print out the third element of the Wind variable.
+
+```{r q13-15}
+data(airquality)
+airquality$Wind
+airquality$Wind[3]
+```
+
+16.	Create a new data frame called aq that includes only the first 10 cases. Hint: typing c(1,2,3,4,5,6,7,8,9,10) is tedious. R allows you to use 1:10 as a shorthand method!
+17.	Use logical indexing to print out all days (ie. cases) in aq where the Ozone level was higher than 20. 
+    a.	What did the output do with NA values?
+18.	Use subset() to do the same thing. Notice the difference in the output.
+
+```{r q16-18}
+aq <- airquality[1:10, ]
+aq
+
+# Logical indexing - includes rows with NAs
+aq[aq$Ozone > 20, ]
+
+# subset() - automatically removes NAs
+subset(aq, Ozone > 20)
+```
+
+19.	Create a TooWindy variable inside aq, which is a logical variable that is TRUE if Wind is greater than 10, and FALSE otherwise.
+
+```{r q19}
+aq$TooWindy <- aq$Wind > 10
+aq
+```
+
+20.	Use the length() function to determine the number of observations in the airquality dataframe.
+
+```{r q20}
+length(airquality$Ozone)
+# Or use nrow() which is more appropriate for dataframes
+nrow(airquality)
+```
+
+21.	Calculate the mean and standard deviation of one of the variables in airquality.
+
+```{r q21}
+mean(airquality$Temp)
+sd(airquality$Temp)
+```
+
+22.	Make a table of the Temp values.
+
+```{r q22}
+table(airquality$Temp)
+```
+
+23.	Make a histogram of the Ozone column. Is it a normal distribution? Why or why not?
+
+```{r q23}
+hist(airquality$Ozone, main = "Histogram of Ozone", xlab = "Ozone")
+# The distribution is right-skewed, not normal. It has a long tail 
+# to the right and most values are concentrated on the lower end.
+```
+
+# Functions: 
+
+24.	Make a simple function to calculate x + 6.
+
+```{r q24}
+add_six <- function(x) {
+  return(x + 6)
+}
+add_six(10)
+```
+
+25.	Use that function add 6 to the Temp column in airquality. 
+
+```{r q25}
+add_six(airquality$Temp)
+```
+
+# Packages:
+
+26.	Install the ggplot2 package.
+27.	Install the car package.
+28.	Install the ez package. (no output necessary for these three)
+29.	Load the car library.
+
+```{r q29}
+# install.packages("ggplot2")
+# install.packages("car")
+# install.packages("ez")
+library(car)
+```
+
+# Files
+
+30. Import the csv file provided on Canvas. 
+
+```{r q30}
+my_data <- read.csv("lab_R_learning.csv")
+my_data
+```
