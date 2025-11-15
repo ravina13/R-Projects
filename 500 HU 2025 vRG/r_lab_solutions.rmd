@@ -211,6 +211,6 @@ library(car)
 30. Import the csv file provided on Canvas. 
 
 ```{r q30}
-my_data <- read.csv("lab_R_learning.csv")
+my_data <- read.csv("/Users/rgaikw468/Documents/Personal/R-Projects/500 HU 2025 vRG/lab_R_learning.csv")
 my_data
 ```
