@@ -1,0 +1,763 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Lab 01 R Learning},
+  pdfauthor={Ravina Gaikwad 328648},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Lab 01 R Learning}
+\author{Ravina Gaikwad 328648}
+\date{2025-11-15}
+
+\begin{document}
+\maketitle
+
+\textbf{Machine:} HQSML-FVFGF5W8Q05N - Darwin 24.6.0
+
+\section{Logical Operators:}\label{logical-operators}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Use logical operations to get R to agree that ``two plus two equals
+  5'' is FALSE. \textbf{Explanation:} This uses the \texttt{==} operator
+  to test equality. Since 4 does not equal 5, R returns FALSE.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2} \SpecialCharTok{+} \DecValTok{2} \SpecialCharTok{==} \DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Use logical operations to test whether 8 \^{} 13 is less than 15 \^{}
+  9.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{8} \SpecialCharTok{\^{}} \DecValTok{13} \SpecialCharTok{\textless{}} \DecValTok{15} \SpecialCharTok{\^{}} \DecValTok{9}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\section{Variables:}\label{variables}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Create a variable called potato whose value corresponds to the number
+  of potatoes you've eaten in the last week. Or something equally
+  ridiculous. Print out the value of potato.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{potato }\OtherTok{\textless{}{-}} \DecValTok{5}
+\NormalTok{potato}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Calculate the square root of potato using the sqrt() function. Print
+  out the value of potato again to verify that the value of potato
+  hasn't changed.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sqrt}\NormalTok{(potato)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.236068
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{potato}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Reassign the value of potato to potato * 2. Print out the new value of
+  potato to verify that it has changed.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{potato }\OtherTok{\textless{}{-}}\NormalTok{ potato }\SpecialCharTok{*} \DecValTok{2}
+\NormalTok{potato}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Try making a character (string) variable and a logical variable . Try
+  creating a variable with a ``missing'' value NA. You can call these
+  variables whatever you would like. Use class(variablename) to make
+  sure they are the right type of variable.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_string }\OtherTok{\textless{}{-}} \StringTok{"Hello World"}
+\NormalTok{my\_logical }\OtherTok{\textless{}{-}} \ConstantTok{TRUE}
+\NormalTok{my\_missing }\OtherTok{\textless{}{-}} \ConstantTok{NA}
+
+\FunctionTok{class}\NormalTok{(my\_string)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "character"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(my\_logical)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "logical"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(my\_missing)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "logical"
+\end{verbatim}
+
+\section{Vectors:}\label{vectors}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Create a numeric vector with three elements using c().
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_vector }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{15}\NormalTok{)}
+\NormalTok{my\_vector}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  5 10 15
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{7}
+\tightlist
+\item
+  Create a character vector with three elements using c().
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{char\_vector }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"apple"}\NormalTok{, }\StringTok{"banana"}\NormalTok{, }\StringTok{"cherry"}\NormalTok{)}
+\NormalTok{char\_vector}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "apple"  "banana" "cherry"
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{8}
+\tightlist
+\item
+  Create a numeric vector called age whose elements contain the ages of
+  three people you know, where the names of each element correspond to
+  the names of those people.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{age }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{Alice =} \DecValTok{25}\NormalTok{, }\AttributeTok{Bob =} \DecValTok{30}\NormalTok{, }\AttributeTok{Charlie =} \DecValTok{28}\NormalTok{)}
+\NormalTok{age}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Alice     Bob Charlie 
+##      25      30      28
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{9}
+\tightlist
+\item
+  Use ``indexing by number'' to get R to print out the first element of
+  one of the vectors you created in the last questions.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{age[}\DecValTok{1}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Alice 
+##    25
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{10}
+\tightlist
+\item
+  Use logical indexing to return all the ages of all people in age
+  greater than 20.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{age[age }\SpecialCharTok{\textgreater{}} \DecValTok{20}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Alice     Bob Charlie 
+##      25      30      28
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{11}
+\tightlist
+\item
+  Use indexing by name to return the age of one of the people whose ages
+  you've stored in age
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{age[}\StringTok{"Alice"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Alice 
+##    25
+\end{verbatim}
+
+\section{Matrices:}\label{matrices}
+
+\section{Dataframes:}\label{dataframes}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{12}
+\tightlist
+\item
+  Load the airquality dataset.
+\item
+  Use the \$ method to print out the Wind variable in airquality.
+\item
+  Print out the third element of the Wind variable.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data}\NormalTok{(airquality)}
+\NormalTok{airquality}\SpecialCharTok{$}\NormalTok{Wind}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   [1]  7.4  8.0 12.6 11.5 14.3 14.9  8.6 13.8 20.1  8.6  6.9  9.7  9.2 10.9 13.2
+##  [16] 11.5 12.0 18.4 11.5  9.7  9.7 16.6  9.7 12.0 16.6 14.9  8.0 12.0 14.9  5.7
+##  [31]  7.4  8.6  9.7 16.1  9.2  8.6 14.3  9.7  6.9 13.8 11.5 10.9  9.2  8.0 13.8
+##  [46] 11.5 14.9 20.7  9.2 11.5 10.3  6.3  1.7  4.6  6.3  8.0  8.0 10.3 11.5 14.9
+##  [61]  8.0  4.1  9.2  9.2 10.9  4.6 10.9  5.1  6.3  5.7  7.4  8.6 14.3 14.9 14.9
+##  [76] 14.3  6.9 10.3  6.3  5.1 11.5  6.9  9.7 11.5  8.6  8.0  8.6 12.0  7.4  7.4
+##  [91]  7.4  9.2  6.9 13.8  7.4  6.9  7.4  4.6  4.0 10.3  8.0  8.6 11.5 11.5 11.5
+## [106]  9.7 11.5 10.3  6.3  7.4 10.9 10.3 15.5 14.3 12.6  9.7  3.4  8.0  5.7  9.7
+## [121]  2.3  6.3  6.3  6.9  5.1  2.8  4.6  7.4 15.5 10.9 10.3 10.9  9.7 14.9 15.5
+## [136]  6.3 10.9 11.5  6.9 13.8 10.3 10.3  8.0 12.6  9.2 10.3 10.3 16.6  6.9 13.2
+## [151] 14.3  8.0 11.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{airquality}\SpecialCharTok{$}\NormalTok{Wind[}\DecValTok{3}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12.6
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{15}
+\tightlist
+\item
+  Create a new data frame called aq that includes only the first 10
+  cases. Hint: typing c(1,2,3,4,5,6,7,8,9,10) is tedious. R allows you
+  to use 1:10 as a shorthand method!
+\item
+  Use logical indexing to print out all days (ie. cases) in aq where the
+  Ozone level was higher than 20.
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    What did the output do with NA values?
+  \end{enumerate}
+\item
+  Use subset() to do the same thing. Notice the difference in the
+  output.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aq }\OtherTok{\textless{}{-}}\NormalTok{ airquality[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{, ]}
+\NormalTok{aq}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Ozone Solar.R Wind Temp Month Day
+## 1     41     190  7.4   67     5   1
+## 2     36     118  8.0   72     5   2
+## 3     12     149 12.6   74     5   3
+## 4     18     313 11.5   62     5   4
+## 5     NA      NA 14.3   56     5   5
+## 6     28      NA 14.9   66     5   6
+## 7     23     299  8.6   65     5   7
+## 8     19      99 13.8   59     5   8
+## 9      8      19 20.1   61     5   9
+## 10    NA     194  8.6   69     5  10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Logical indexing {-} includes rows with NAs}
+\NormalTok{aq[aq}\SpecialCharTok{$}\NormalTok{Ozone }\SpecialCharTok{\textgreater{}} \DecValTok{20}\NormalTok{, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Ozone Solar.R Wind Temp Month Day
+## 1       41     190  7.4   67     5   1
+## 2       36     118  8.0   72     5   2
+## NA      NA      NA   NA   NA    NA  NA
+## 6       28      NA 14.9   66     5   6
+## 7       23     299  8.6   65     5   7
+## NA.1    NA      NA   NA   NA    NA  NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# subset() {-} automatically removes NAs}
+\FunctionTok{subset}\NormalTok{(aq, Ozone }\SpecialCharTok{\textgreater{}} \DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Ozone Solar.R Wind Temp Month Day
+## 1    41     190  7.4   67     5   1
+## 2    36     118  8.0   72     5   2
+## 6    28      NA 14.9   66     5   6
+## 7    23     299  8.6   65     5   7
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{18}
+\tightlist
+\item
+  Create a TooWindy variable inside aq, which is a logical variable that
+  is TRUE if Wind is greater than 10, and FALSE otherwise.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aq}\SpecialCharTok{$}\NormalTok{TooWindy }\OtherTok{\textless{}{-}}\NormalTok{ aq}\SpecialCharTok{$}\NormalTok{Wind }\SpecialCharTok{\textgreater{}} \DecValTok{10}
+\NormalTok{aq}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Ozone Solar.R Wind Temp Month Day TooWindy
+## 1     41     190  7.4   67     5   1    FALSE
+## 2     36     118  8.0   72     5   2    FALSE
+## 3     12     149 12.6   74     5   3     TRUE
+## 4     18     313 11.5   62     5   4     TRUE
+## 5     NA      NA 14.3   56     5   5     TRUE
+## 6     28      NA 14.9   66     5   6     TRUE
+## 7     23     299  8.6   65     5   7    FALSE
+## 8     19      99 13.8   59     5   8     TRUE
+## 9      8      19 20.1   61     5   9     TRUE
+## 10    NA     194  8.6   69     5  10    FALSE
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{19}
+\tightlist
+\item
+  Use the length() function to determine the number of observations in
+  the airquality dataframe.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{length}\NormalTok{(airquality}\SpecialCharTok{$}\NormalTok{Ozone)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 153
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Or use nrow() which is more appropriate for dataframes}
+\FunctionTok{nrow}\NormalTok{(airquality)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 153
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{20}
+\tightlist
+\item
+  Calculate the mean and standard deviation of one of the variables in
+  airquality.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(airquality}\SpecialCharTok{$}\NormalTok{Temp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 77.88235
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sd}\NormalTok{(airquality}\SpecialCharTok{$}\NormalTok{Temp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 9.46527
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{21}
+\tightlist
+\item
+  Make a table of the Temp values.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(airquality}\SpecialCharTok{$}\NormalTok{Temp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## 56 57 58 59 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 
+##  1  3  2  2  3  2  1  2  2  3  4  4  3  1  3  3  5  4  4  9  7  6  6  5 11  9 
+## 83 84 85 86 87 88 89 90 91 92 93 94 96 97 
+##  4  5  5  7  5  3  2  3  2  5  3  2  1  1
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{22}
+\tightlist
+\item
+  Make a histogram of the Ozone column. Is it a normal distribution? Why
+  or why not?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(airquality}\SpecialCharTok{$}\NormalTok{Ozone, }\AttributeTok{main =} \StringTok{"Histogram of Ozone"}\NormalTok{, }\AttributeTok{xlab =} \StringTok{"Ozone"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Lab-01-R-Learning_files/figure-latex/q23-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# The distribution is right{-}skewed, not normal. It has a long tail }
+\CommentTok{\# to the right and most values are concentrated on the lower end.}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Functions:}\label{functions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{23}
+\tightlist
+\item
+  Make a simple function to calculate x + 6.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{add\_six }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
+  \FunctionTok{return}\NormalTok{(x }\SpecialCharTok{+} \DecValTok{6}\NormalTok{)}
+\NormalTok{\}}
+\FunctionTok{add\_six}\NormalTok{(}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 16
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{24}
+\tightlist
+\item
+  Use that function add 6 to the Temp column in airquality.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{add\_six}\NormalTok{(airquality}\SpecialCharTok{$}\NormalTok{Temp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   [1]  73  78  80  68  62  72  71  65  67  75  80  75  72  74  64  70  72  63
+##  [19]  74  68  65  79  67  67  63  64  63  73  87  85  82  84  80  73  90  91
+##  [37]  85  88  93  96  93  99  98  88  86  85  83  78  71  79  82  83  82  82
+##  [55]  82  81  84  79  86  83  89  90  91  87  90  89  89  94  98  98  95  88
+##  [73]  79  87  97  86  87  88  90  93  91  80  87  88  92  91  88  92  94  92
+##  [91]  89  87  87  87  88  92  91  93  95  96  96  98  92  92  88  86  85  83
+## [109]  85  82  84  84  83  78  81  85  87  92  94 103 100 102 100  97  98  99
+## [127]  99  93  90  86  84  81  79  87  82  83  77  77  84  73  82  74  88  70
+## [145]  77  87  75  69  76  83  81  82  74
+\end{verbatim}
+
+\section{Packages:}\label{packages}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{25}
+\tightlist
+\item
+  Install the ggplot2 package.
+\item
+  Install the car package.
+\item
+  Install the ez package. (no output necessary for these three)
+\item
+  Load the car library.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# install.packages("ggplot2")}
+\CommentTok{\# install.packages("car")}
+\CommentTok{\# install.packages("ez")}
+\FunctionTok{library}\NormalTok{(car)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: carData
+\end{verbatim}
+
+\section{Files}\label{files}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{29}
+\tightlist
+\item
+  Import the csv file provided on Canvas.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"/Users/rgaikw468/Documents/Personal/R{-}Projects/500 HU 2025 vRG/lab\_R\_learning.csv"}\NormalTok{)}
+\NormalTok{my\_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    variable1 stuff2 thing3
+## 1          3 cheese   TRUE
+## 2          4   feta  FALSE
+## 3          6  swiss   TRUE
+## 4          4 cheese  FALSE
+## 5          7   feta  FALSE
+## 6          2  swiss   TRUE
+## 7          8 cheese  FALSE
+## 8          9   feta  FALSE
+## 9          3  swiss   TRUE
+## 10         4         FALSE
+\end{verbatim}
+
+\end{document}

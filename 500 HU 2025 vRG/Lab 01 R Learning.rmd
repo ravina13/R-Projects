@@ -1,0 +1,268 @@
+---
+title: "Lab 01 R Learning"
+author: "Ravina Gaikwad 328648"
+date: "`r Sys.Date()`"
+output: 
+  word_document:
+    reference_docx: default
+---
+
+```{r machine-info, echo=FALSE, results='asis'}
+cat("**Machine:**", paste0(Sys.info()['nodename'], " - ", Sys.info()['sysname'], " ", Sys.info()['release']), "\n\n")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Set machine info for document
+machine_info <- paste0(Sys.info()['nodename'], ' - ', Sys.info()['sysname'], ' ', Sys.info()['release'])
+```
+
+# Logical Operators: 
+
+1.	Use logical operations to get R to agree that "two plus two equals 5" is FALSE.
++ Explanation: I'm using the equality operator below and since 2+2 is 4 which does not equal 5, R returns FALSE.
+
+```{r q1}
+2 + 2 == 5
+```
+
+2.	Use logical operations to test whether 8 ^ 13 is less than 15 ^ 9.
++ Explanation: I'm using the comparison operator to check if LHS is less than RHS below and since LHS is not less than RHS, R returns FALSE.
+
+
+```{r q2}
+8 ^ 13 < 15 ^ 9
+```
+
+# Variables:
+
+3.	Create a variable called potato whose value corresponds to the number of potatoes you've eaten in the last week. Or something equally ridiculous. Print out the value of potato.
++ Explanation: I've created a variable called potato assigned 5 to it which makes it numeric. Also 5 cause I had potato as part of my meal every day this week.
+
+```{r q3}
+potato <- 5
+potato
+class(potato)
+```
+
+4.	Calculate the square root of potato using the sqrt() function. Print out the value of potato again to verify that the value of potato hasn't changed.
++ Explanation: Square root of 5 is 2.23 per the sqrt() function in R! cube root is 1.7.
+
+```{r q4}
+cat("Ravina's variable is," , potato, " square root of Ravina's variable", sqrt(potato))
+cube_root_x <- potato^(1/3)
+cat(" and cube root of Ravina's variable", cube_root_x)
+```
+
+5.	Reassign the value of potato to potato * 2. Print out the new value of potato to verify that it has changed.
++ Explanation: If had twice the amount of potato it would be 10.
+
+```{r q5}
+potato <- potato * 2
+cat("If Ravina consumed twice the amount of potato it would be ", potato)
+```
+
+6.	Try making a character (string) variable and a logical variable . Try creating a variable with a "missing" value NA. You can call these variables whatever you would like. Use class(variablename) to make sure they are the right type of variable.
++ Explanation: String returns char type while logical and NA are type logical.
+
+```{r q6}
+Ravinas_string <- "Ravina says Hello!"
+Ravinas_logical_var <- TRUE
+Ravinas_missing_var <- NA
+
+class(Ravinas_string)
+class(Ravinas_logical_var)
+class(Ravinas_missing_var)
+```
+
+# Vectors:
+
+7.	Create a numeric vector with three elements using c().
++ Explanation: My numeric vector returns the amount of veggies I ate last week.
+
+```{r q7}
+Ravina_veggie_intake <- c(5, 20, 10)
+Ravina_veggie_intake
+```
+
+8.	Create a character vector with three elements using c().
++ Explanation: My char vector returns the which veggies I ate last week.
+
+```{r q8}
+Ravina_veggie <- c("potato", "tomato", "green pepper")
+Ravina_veggie
+```
+
+9.	Create a numeric vector called age whose elements contain the ages of three people you know, where the names of each element correspond to the names of those people.
++ Explanation: Age returns the ages of the members of my family.
+
+```{r q9}
+age <- c(Rohit = 25, Nanda = 65, Prakash = 64)
+age
+```
+
+10.	Use "indexing by number" to get R to print out the first element of one of the vectors you created in the last questions.
++ Explanation: I am returning the age of the youngest member of my family.
+
+```{r q10}
+age[1]
+```
+
+11.	Use logical indexing to return all the ages of all people in age greater than 20.
++ Explanation: All members of my family are older than 20.
+
+```{r q11}
+age[age > 20]
+```
+
+12.	Use indexing by name to return the age of one of the people whose ages you've stored in age
++ Explanation: I'm retruning the age of Nanda below who is 65 years old.
+
+```{r q12}
+cat("Nanda is", age["Nanda"])
+```
+
+# Matrices:
++ Explanation: sample matrix below
+
+```{r missing question}
+Ravinas_matrix <- matrix(data = 1:25, nrow = 5, ncol = 5)
+Ravinas_matrix
+```
+
+# Dataframes:
+
+13.	Load the airquality dataset. 
++ Explanation: I'm loading the air quality dataset. This dataset contains daily air quality measurements in New York from May to September 1973, including variables such as Ozone, Solar.R, Wind, Temp, and Month. It has 153 records.
+
+14. Use the $ method to print out the Wind variable in airquality.
++ Explanation: I'm returning 153 records under wind column from air quality data set.
+
+15.	Print out the third element of the Wind variable.
++ Explanation: I'm returning the 3rd value of wind from the dataset.
+
+
+```{r q13-15}
+data(airquality)
+dim(airquality)
+airquality$Wind
+airquality$Wind[3]
+```
+
+16.	Create a new data frame called aq that includes only the first 10 cases. Hint: typing c(1,2,3,4,5,6,7,8,9,10) is tedious. R allows you to use 1:10 as a shorthand method!
++ Explanation: I'm creating a data set called aq which has first 10 records from the air quality.
+
+17.	Use logical indexing to print out all days (ie. cases) in aq where the Ozone level was higher than 20. 
+    a.	What did the output do with NA values?
++ Explanation: I'm returning records from aq where Ozone level is greater than 20, NA values are returned as for NAs, if Ozone is NA all values were turned into NA
+
+18.	Use subset() to do the same thing. Notice the difference in the output.
++ Explanation: Subset() lets me return records only where Ozone is greater than 20 and not NA.
+
+
+```{r q16-18}
+aq <- airquality[1:10, ]
+aq
+dim(aq)
+
+# Logical indexing - includes rows with NAs
+aq[aq$Ozone > 20, ]
+
+# subset() - automatically removes NAs
+subset(aq, Ozone > 20)
+```
+
+19.	Create a TooWindy variable inside aq, which is a logical variable that is TRUE if Wind is greater than 10, and FALSE otherwise.
++ Explanation: I'm creating TooWindy variable and find that 6 records return TRUE based on the condition.
+
+
+```{r q19}
+aq$TooWindy <- aq$Wind > 10
+aq
+sum(aq$TooWindy)
+```
+
+20.	Use the length() function to determine the number of observations in the airquality dataframe.
++ Explanation: I'm returning number of columns, rows and lastly combined way to show row & column count.
+
+```{r q20}
+length(airquality)
+
+nrow(airquality)
+
+dim(airquality)
+```
+
+21.	Calculate the mean and standard deviation of one of the variables in airquality.
++ Explanation: I'm returning mean temp from airquality dataset which is 77.8 & standard deviation for temp which is 9.4 that mean each temp record deviates from 77 by 90 degrees.
+
+```{r q21}
+mean(airquality$Temp)
+sd(airquality$Temp)
+```
+
+22.	Make a table of the Temp values.
++ Explanation: I'm returning creating a table for temp values only.
+
+```{r q22}
+table(airquality$Temp)
+```
+
+23.	Make a histogram of the Ozone column. Is it a normal distribution? Why or why not?
++ Explanation: Ozone values are not normally distributed, its skewed towards the right. 
+
+```{r q23}
+hist(airquality$Ozone, main = "Histogram of Ozone", xlab = "Ozone")
+# The distribution is right-skewed, not normal. It has a long tail 
+# to the right and most values are concentrated on the lower end.
+```
+
+# Functions: 
+
+24.	Make a simple function to calculate x + 6.
++ Explanation: I'm creating a function that will add 6 to the input. 
+
+
+```{r q24}
+add_six <- function(x) {
+  return(x + 6)
+}
+add_six(10)
+add_six(100000)
+```
+
+25.	Use that function add 6 to the Temp column in airquality. 
++ Explanation: I'm applying the add_six function to the airquality dataset column Temp.
+
+
+```{r q25}
+add_six(airquality$Temp)
+```
+
+# Packages:
+
+26.	Install the ggplot2 package.
+27.	Install the car package.
+28.	Install the ez package. (no output necessary for these three)
+29.	Load the car library.
+
++ Explanation: Installed all packages 1 by 1 and loaded car(Companion to Applied Regression).
+
+
+```{r q29}
+#install.packages("ggplot2")
+# install.packages("car")
+# install.packages("ez")
+library(car)
+```
+
+# Files
+
+30. Import the csv file provided on Canvas.
++ Explanation: Imported file provied which has 10 records and 3 columns. 
+
+```{r q30}
+prof_data <- read.csv("/Users/rgaikw468/Documents/Personal/R-Projects/500 HU 2025 vRG/lab_R_learning.csv")
+prof_data
+dim(prof_data)
+```
