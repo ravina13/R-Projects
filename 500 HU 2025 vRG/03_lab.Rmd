@@ -1,0 +1,233 @@
+---
+title: "Introduction to Data Analytics 1"
+author: "Ravina Gaikwad"
+date: "`r Sys.Date()`"
+output: 
+  word_document:
+    reference_docx: default
+---
+
+```{r machine-info, echo=FALSE, results='asis'}
+cat("**Machine:**", paste0(Sys.info()['nodename'], " - ", Sys.info()['sysname'], " ", Sys.info()['release']), "\n\n")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Set machine info for document
+machine_info <- paste0(Sys.info()['nodename'], ' - ', Sys.info()['sysname'], ' ', Sys.info()['release'])
+```
+
+# Part 1: Variables, Hypothesis, Designs
+
+*Title:* Offshore outsourcing: Its advantages, disadvantages, and effect on the American economy
+
+*Abstract*: The United States has trained some of the world's best computer programmers and technology experts. Despite all of this training, many businesses do not have a full understanding of information technology. As the importance of technology in the business world grows, many companies are wasting money on extensive technology projects. When problems arise, they expect that further investment will solve these issues. To prevent such problems, many companies have begun to outsource these functions in an effort to reduce costs and improve performance. The majority of these outsourced information technology and call center jobs are going to low-wage countries, such as India and China where English-speaking college graduates are being hired at substantially lower wages. The purpose of this study is to evaluate the positive and negative aspects of offshore outsourcing with a focus on the outsourcing markets in India and China, arguably the two most popular destinations for outsourcers. The cost savings associated with offshore outsourcing will be evaluated in relation to the security risks and other weakness of offshore outsourcing. In addition, an analysis of the number of jobs sent overseas versus the number of jobs created in the United States will be used to assess the effects that outsourcing is having on the American economy and job market. Finally, the value of jobs lost from the American economy will be compared to the value of jobs created. The goal of these analyses is to create a clear picture of this increasingly popular business strategy.
+
+Answer the following questions about the abstract above:
+
+1)	What is a potential hypothesis of the researchers?
+
+**RG Answer:** Companies that outsource a higher percentage of jobs to India and China will experience greater cost savings compared to companies that outsource fewer jobs or do not outsource at all.
+
+2)	What is one of the independent variables?
+
+**RG Answer:** The location where jobs are outsourced (India vs. China) OR the percentage of jobs outsourced.
+
+    a.	What type of variable is the independent variable?
+    
+    **RG Answer:** Categorical (nominal) for location; Continuous (ratio) for percentage of jobs outsourced.
+
+3)	What is one of the dependent variables?
+
+**RG Answer:** Cost savings for the business.
+
+    a.	What type of variable is the dependent variable?
+    **RG Answer:** Continuous (ratio/interval) variable.
+    
+4)	What might cause some measurement error in this experiment?
+
+**RG Answer:** Potential sources of measurement error include: 
+- exchange rate fluctuations
+- self-report bias if businesses overestimate or underestimate their savings
+- failure to account for hidden costs (training, communication issues, quality control)
+- differences in how businesses define and count "outsourced jobs" 
+ 
+ 
+5)	What type of research design is the experiment?
+
+**RG Answer:** The research design seems correlational/observational.
+
+    a.	Why?
+    
+    **RG Answer:** The research is looking to compare relationship between various data attributes which is controlled by businesses meaning, the data for this research will need to be collected as opposed to be generated for the purposes of the research.
+
+6)	How might you measure the reliability of your dependent variable?
+
+**RG Answer:** Use test-retest reliability by measuring cost savings at multiple time points to see if the measurements are consistent for the same participants. OR use parallel forms reliability by comparing the two different cost savings calculations (Cost and Cost2).
+
+7)	Is this study ecologically valid?
+
+**RG Answer:** Yes, this study seems to have good ecological validity as it examines real businesses making actual outsourcing decisions in their natural business environment.
+
+8)	Can this study claim cause and effect?
+
+**RG Answer:** No, not with just these 3-4 attributes/variables.
+
+    a.	Why/why not?
+   
+   **RG Answer:** Participants cannot be randomly assigned since the we are relying on data collected companies/businesses, we are not considering a coontrol group to make this a fair study. Based on the data we cannot be certain that outsourcing causes cost savings rather than some other factor that differs between companies that do and don't outsource.
+
+9)	What type of data collection did the researchers use (please note that #5 is a different question)?
+
+**RG Answer:** Seems like data is being source from archives or could be secondary data collection. Researcher likely gathered existing records and data from businesses, including financial records, employment data, and cost analyses that were already collected for other purposes.
+
+# Part 2: Use the assessment scores dataset (03_lab.csv) to answer these questions.
+
+**RG Explanation:** Following loads data form my local directory.
+
+```{r dataload}
+dataset <- read.csv("/Users/rgaikw468/Documents/Personal/R-Projects/500 HU 2025 vRG/03_data.csv")
+```
+
+Calculate the following information:
+
+1)	Create a frequency table of the percent of outsourced jobs.
+
+**RG Explanation:** Assuming jobs refers to percentage of job being outsourced, minimum of 58% of jobs were outsourced with and average of 79.50. Frequency table reflects that all values in the jobs column are unique. with min of 58%, companies/businesses in the the data are oursourcing a good amount of their workforce.
+
+```{r frequncy summary}
+#Frequency output
+table(dataset$jobs)
+
+#Summary output
+summary(dataset$jobs)
+```
+
+2)	Create histograms of the two types of cost savings. You will want to add the breaks argument to the hist() function. This argument adds more bars to the histogram, which makes it easier to answer the following questions:
+
+`hist(dataset$column, breaks = 15)` 
+
+15 is a great number to pick, but it can be any number. For this assignment, try 15 to see a medium number of bars. 
+
+**RG Explanation:** Follow displays histogram for both versions of cost savings.
+
+```{r histogram}
+# Histogram for Cost
+hist(dataset$cost, breaks = 15, 
+     main = "Histogram of Cost",
+     xlab = "Cost",
+     col = "lightblue")
+
+# Histogram for Cost2
+hist(dataset$cost2, breaks = 15,
+     main = "Histogram of Cost2",
+     xlab = "Cost2",
+     col = "lightgreen")
+```
+
+
+3)	Examine these histograms to answer the following questions:
+
+    a.	Which cost savings appears the most normal?
+    
+    **RG Answer:** Cost savings 1 (cost) appears most normal, since it is relativly symmetric with a bell-shaped distribution centered around the mean.
+    
+    b.	Which cost savings data is multimodal?
+    
+    **RG Answer:** Cost Savings 1 (cost2) appears to be multimodal, showing multiple peaks (atleast 3) in the distribution.
+    
+    c.	Which cost savings data looks the most skewed (and in which direction positive or negative)? 
+    
+    **RG Answer:** Cost Savings 2 (cost2) appears more skewed, with a slight negative skew (tail extending to the left).
+    
+    d.	Which cost savings data looks the most kurtotic?
+    
+    **Answer:** Cost Savings 2 (cost2) looks more kurtotic, possibly leptokurotic with a sharp peak and heavy tails.
+    
+4)	Calculate the z-scores for each cost savings, so they are all on the same scale.
+
+**RG Explanation:** The z-score standardize both cost savings measures to a mean of 0 and standard deviation of 1, allowing direct comparison between the two different calculation methods. Businesses with |z| > 1.96 represent the most extreme of cases, indicating unusually high or low cost savings that warrant further investigation.
+
+```{r}
+# Calculate z-scores for Cost Savings 1
+dataset$z_cost <- scale(dataset$cost)
+
+# Calculate z-scores for Cost Savings 2
+dataset$z_cost2 <- scale(dataset$cost2)
+# Display first few rows with z-scores
+head(dataset[, c("id", "cost", "z_cost", "cost2", "z_cost2")])
+
+#summary(dataset$z_cost)
+#summary(dataset$z_cost2)
+```
+
+6)	How many of the cost saving scores were more extreme than 95% of the data (i.e., number of z-scores at a *p* < .05)?
+
+**RG Explanation:** Following reflects number of records for cost & cost 2 that need to be analysed further. Cost Savings 1 extreme scores: 10 
+Cost Savings 2 extreme scores: 13 
+
+```{r}
+
+# For p < .05 (two-tailed), we need |z| > 1.96
+# Count extreme scores for Cost Savings 1
+extreme_cost1 <- sum(abs(dataset$z_cost) > 1.96)
+cat("Cost Savings 1 extreme scores:", extreme_cost1, "\n")
+
+# Count extreme scores for Cost Savings 2
+extreme_cost2 <- sum(abs(dataset$z_cost2) > 1.96)
+cat("Cost Savings 2 extreme scores:", extreme_cost2, "\n")
+
+```
+
+    a.	Cost Savings 1: 10 records are extreme
+    c.	Cost Savings 2: 13 records are extreme
+    
+7)	Which business had:
+
+    a.	the highest cost savings?
+   
+    **RG Explanation:** S100 per cost, and S097 per cost 2. 
+    
+    
+    b.	the the lowest cost savings?
+    
+     **RG Explanation:** S190 per cost, and S092 per cost 2.
+    
+    c.  Use both cost savings columns and find the ID number of the business with the lowest and highest z-score.
+    
+    **RG Explanation:** Highest per z- score - S190 per cost, and S092 per cost 2. Lowest per z - score. This matches our max and min calculation above. 
+```{r}
+highest_cost1_id <- dataset$id[which.max(dataset$cost)]
+highest_cost1_value <- max(dataset$cost)
+
+highest_cost2_id <- dataset$id[which.max(dataset$cost2)]
+highest_cost2_value <- max(dataset$cost2)
+
+cat("Highest Cost Savings 1:", highest_cost1_value, "- Business ID:", highest_cost1_id, "\n")
+cat("Highest Cost Savings 2:", highest_cost2_value, "- Business ID:", highest_cost2_id, "\n\n")
+
+# Find lowest cost savings (using both columns)
+lowest_cost1_id <- dataset$id[which.min(dataset$cost)]
+lowest_cost1_value <- min(dataset$cost)
+
+lowest_cost2_id <- dataset$id[which.min(dataset$cost2)]
+lowest_cost2_value <- min(dataset$cost2)
+
+cat("Lowest Cost Savings 1:", lowest_cost1_value, "- Business ID:", lowest_cost1_id, "\n")
+cat("Lowest Cost Savings 2:", lowest_cost2_value, "- Business ID:", lowest_cost2_id, "\n\n")
+
+
+# Using z-scores
+highest_z_cost1_id <- dataset$id[which.max(dataset$z_cost)]
+highest_z_cost2_id <- dataset$id[which.max(dataset$z_cost2)]
+
+lowest_z_cost1_id <- dataset$id[which.min(dataset$z_cost)]
+lowest_z_cost2_id <- dataset$id[which.min(dataset$z_cost2)]
+
+
+cat("Per z-score, highest cost savings 1:", highest_z_cost1_id, "- Business ID:", highest_z_cost1_id, "\n")
+cat("Per z-score, highest cost savings 2:", highest_z_cost2_id, "- Business ID:", highest_z_cost2_id, "\n\n")
+cat("Per z-score, lowest cost savings 1:", lowest_z_cost1_id, "- Business ID:", lowest_z_cost1_id, "\n")
+cat("Per z-score, lowest cost savings 2:", lowest_z_cost2_id, "- Business ID:", lowest_z_cost2_id, "\n")
+
+```
