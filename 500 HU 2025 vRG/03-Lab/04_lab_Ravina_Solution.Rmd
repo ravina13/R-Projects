@@ -1,0 +1,128 @@
+---
+title: "Introduction to Data Analytics 2"
+author: "Enter Your Name"
+date: "`r Sys.Date()`"
+output: 
+  word_document:
+    reference_docx: default
+---
+
+```{r machine-info, echo=FALSE, results='asis'}
+cat("**Machine:**", paste0(Sys.info()['nodename'], " - ", Sys.info()['sysname'], " ", Sys.info()['release']), "\n\n")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Set machine info for document
+machine_info <- paste0(Sys.info()['nodename'], ' - ', Sys.info()['sysname'], ' ', Sys.info()['release'])
+```
+
+# Part 1: Experiment Design
+
+*Title*: Consumer Pseudo-Showrooming and Omni-Channel Product Placement Strategies
+
+*Abstract*: Recent advances in information technologies (IT) have powered the merger of online and offline retail channels into one single platform. 
+Modern consumers frequently switch between online and offline channels when they navigate through various stages of the decision journey, motivating multichannel sellers to develop omni-channel strategies that optimize their overall profit. 
+This study examines consumers' cross-channel search behavior of "pseudo-showrooming," or the consumer behavior of inspecting one product at a seller's physical store before buying a related but different product at the same seller’s online store, 
+and investigates how such consumer behavior allows a multichannel seller to achieve better coordination between its online and offline arms through optimal product placement strategies.
+
+Participants in the study were grouped into the following categories: 
+
+  - Where_bought: Where they ended up purchasing an item: bought at the store, bought online. 
+  - Who_bought: If they bought from the same or a different retailer. 
+
+Each participant was then measured on:
+
+  - Money: how much money they spent in dollars on the product.
+  - Time: how much time (in minutes) they spent looking at the product online. 
+
+1)	What would be one possible null hypothesis based on this study?
+
+**Null Hypotheses to Consider:**
+- H₀₁: There is no difference in money spent between purchasing at a store versus online, regardless of retailer (same vs. different).
+- H₀₂: There is no difference in time spent browsing online between consumers who buy from the same retailer versus a different retailer.
+- H₀₃: There is no interaction effect between where the purchase is made (store/online) and retailer choice (same/different) on money spent or time spent.
+
+2)	What would be one possible alternative hypothesis based on this study?
+
+**Alternative Hypotheses to Consider:**
+- H₁₁: Money spent differs significantly between store purchases and online purchases, with store purchases resulting in higher spending due to pseudo-showrooming behavior.
+- H₁₂: Time spent browsing online is significantly different depending on whether consumers buy from the same retailer or a different retailer, with same-retailer purchases involving less browsing time.
+- H₁₃: There is a significant interaction effect where the difference in money/time between store and online purchases depends on retailer choice (same vs. different).
+
+3)	Who are they sampling in this study?
+
+**Possible Answers:**
+- They are sampling individuals who exhibit pseudo-showrooming behavior—consumers who browse or inspect products across different retail channels (online and physical stores) and may purchase from the same or different retailers.
+
+4)	Who is the intended population in this study?
+
+**Answer (based on sample #2):**
+The intended population is all consumers who engage in pseudo-showrooming behavior—that is, all individuals in the broader market who inspect or research products across different retail channels (online and physical stores) before making purchase decisions, and who may purchase from the same or different retailers across these channels. This represents the general population of omni-channel shoppers that multi-channel retailers aim to understand and serve.
+
+5)	Give an example of type 1 error based on this study (do not just define, explain in context how it might have happened here).
+
+**Answer:**
+A Type 1 error (false positive) would occur if we conclude that store purchases lead to significantly higher spending than online purchases when, in reality, there is no true difference in the population. For example, we might reject the null hypothesis and claim that "pseudo-showrooming results in higher spending at physical stores" when in reality, the observed difference in our sample of 200 consumers was due to random sampling variation or chance. This could lead retailers to incorrectly invest in store-based product placement strategies based on a spurious finding.
+
+6)	Give an example of type 2 error based on this study (do not just define, explain in context how it might have happened here).
+
+**Answer:**
+A Type 2 error (false negative) would occur if we fail to reject the null hypothesis when there actually IS a true difference in the population. For instance, we might conclude "there is no significant difference in money spent between store and online purchases" when, in reality, pseudo-showrooming behavior does genuinely result in higher spending at physical stores in the broader population. This could happen if our sample size of 200 was insufficient to detect the true effect, or if there was high variability in spending across consumers. This error could cause retailers to miss out on a real opportunity to optimize their omni-channel strategy.
+
+# Part 2: Use the 04_data.csv to complete this portion.
+
+```{r import-data}
+
+```
+
+1)	For each IV list the levels (next to a, b):
+
+    a.	Where bought: 
+
+    b.	Who bought:
+    
+2)	What are the conditions in this experiment?
+
+3)	For each condition list the means, standard deviations, and standard error for the conditions for time and money spent. Please note that means you should have several sets of M, SD, and SE. Be sure you name the sets of means, sd, and se different things so you can use them later.
+
+```{r descriptives}
+
+```
+
+4)	Which condition appears to have the best model fit using the mean as the model (i.e. smallest error) for time?
+
+5)	What are the df for each condition?
+
+```{r df}
+
+```
+
+6)	What is the confidence interval (95%) for the means?
+
+```{r conf-interval}
+##money
+
+##time
+
+```
+
+7)	Use the MOTE library to calculate the effect size for the difference between money spent for the following comparisons (that means you'll have to do this twice):
+
+```{r MOTE}
+##Store versus online when bought at the same retailer
+
+##Store versus online when bought at a different retailer
+
+```
+
+8)	What can you determine about the effect size in the experiment - is it small, medium or large?
+
+9)	How many people did we need in the study for each comparison?
+
+```{r pwr}
+##Store versus online when bought at the same retailer
+
+##Store versus online when bought at a different retailer
+
+```
