@@ -78,16 +78,93 @@ A Type 2 error (false negative) would occur if we fail to reject the null hypoth
 
 1)	For each IV list the levels (next to a, b):
 
-    a.	Where bought: 
-
-    b.	Who bought:
+    a.	Where bought: **Level 1: Store | Level 2: Online**
+    
+    b.	Who bought: **Level 1: Same (retailer) | Level 2: Different (retailer)**
     
 2)	What are the conditions in this experiment?
 
+**Answer:**
+The experiment has 4 conditions resulting from the 2×2 factorial design:
+
+1. **Online + Different retailer** - Consumers who purchased online from a different retailer than where they browsed
+2. **Online + Same retailer** - Consumers who purchased online from the same retailer where they browsed
+3. **Store + Different retailer** - Consumers who purchased at a physical store from a different retailer than where they browsed online
+4. **Store + Same retailer** - Consumers who purchased at a physical store from the same retailer where they browsed online
+
 3)	For each condition list the means, standard deviations, and standard error for the conditions for time and money spent. Please note that means you should have several sets of M, SD, and SE. Be sure you name the sets of means, sd, and se different things so you can use them later.
 
-```{r descriptives}
+```{r load data}
+# Load data
+data <- read.csv("/Users/rgaikw468/Documents/Personal/R-Projects/500 HU 2025 vRG/03-Lab/04_data.csv")
+cat(head(data, n = 5))
+```
 
+
+```{r descriptives}
+# Load data
+data <- read.csv("/Users/rgaikw468/Downloads/04_data.csv")
+
+# Online + Different retailer
+online_diff_money <- data$money[data$where_bought == "online" & data$who_bought == "different"]
+online_diff_time <- data$time[data$where_bought == "online" & data$who_bought == "different"]
+
+M_online_diff_money <- mean(online_diff_money)
+SD_online_diff_money <- sd(online_diff_money)
+SE_online_diff_money <- SD_online_diff_money / sqrt(length(online_diff_money))
+
+M_online_diff_time <- mean(online_diff_time)
+SD_online_diff_time <- sd(online_diff_time)
+SE_online_diff_time <- SD_online_diff_time / sqrt(length(online_diff_time))
+
+# Online + Same retailer
+online_same_money <- data$money[data$where_bought == "online" & data$who_bought == "same"]
+online_same_time <- data$time[data$where_bought == "online" & data$who_bought == "same"]
+
+M_online_same_money <- mean(online_same_money)
+SD_online_same_money <- sd(online_same_money)
+SE_online_same_money <- SD_online_same_money / sqrt(length(online_same_money))
+
+M_online_same_time <- mean(online_same_time)
+SD_online_same_time <- sd(online_same_time)
+SE_online_same_time <- SD_online_same_time / sqrt(length(online_same_time))
+
+# Store + Different retailer
+store_diff_money <- data$money[data$where_bought == "store" & data$who_bought == "different"]
+store_diff_time <- data$time[data$where_bought == "store" & data$who_bought == "different"]
+
+M_store_diff_money <- mean(store_diff_money)
+SD_store_diff_money <- sd(store_diff_money)
+SE_store_diff_money <- SD_store_diff_money / sqrt(length(store_diff_money))
+
+M_store_diff_time <- mean(store_diff_time)
+SD_store_diff_time <- sd(store_diff_time)
+SE_store_diff_time <- SD_store_diff_time / sqrt(length(store_diff_time))
+
+# Store + Same retailer
+store_same_money <- data$money[data$where_bought == "store" & data$who_bought == "same"]
+store_same_time <- data$time[data$where_bought == "store" & data$who_bought == "same"]
+
+M_store_same_money <- mean(store_same_money)
+SD_store_same_money <- sd(store_same_money)
+SE_store_same_money <- SD_store_same_money / sqrt(length(store_same_money))
+
+M_store_same_time <- mean(store_same_time)
+SD_store_same_time <- sd(store_same_time)
+SE_store_same_time <- SD_store_same_time / sqrt(length(store_same_time))
+
+# Display summary
+cat("MONEY SPENT STATISTICS\n")
+cat("Online + Different: M =", round(M_online_diff_money, 2), ", SD =", round(SD_online_diff_money, 2), ", SE =", round(SE_online_diff_money, 2), "\n")
+cat("Online + Same:      M =", round(M_online_same_money, 2), ", SD =", round(SD_online_same_money, 2), ", SE =", round(SE_online_same_money, 2), "\n")
+cat("Store + Different:  M =", round(M_store_diff_money, 2), ", SD =", round(SD_store_diff_money, 2), ", SE =", round(SE_store_diff_money, 2), "\n")
+cat("Store + Same:       M =", round(M_store_same_money, 2), ", SD =", round(SD_store_same_money, 2), ", SE =", round(SE_store_same_money, 2), "\n\n")
+
+cat("TIME SPENT STATISTICS\n")
+cat("Online + Different: M =", round(M_online_diff_time, 2), ", SD =", round(SD_online_diff_time, 2), ", SE =", round(SE_online_diff_time, 2), "\n")
+cat("Online + Same:      M =", round(M_online_same_time, 2), ", SD =", round(SD_online_same_time, 2), ", SE =", round(SE_online_same_time, 2), "\n")
+cat("Store + Different:  M =", round(M_store_diff_time, 2), ", SD =", round(SD_store_diff_time, 2), ", SE =", round(SE_store_diff_time, 2), "\n")
+cat("Store + Same:       M =", round(M_store_same_time, 2), ", SD =", round(SD_store_same_time, 2), ", SE =", round(SE_store_same_time, 2), "\n")
 ```
 
 4)	Which condition appears to have the best model fit using the mean as the model (i.e. smallest error) for time?
