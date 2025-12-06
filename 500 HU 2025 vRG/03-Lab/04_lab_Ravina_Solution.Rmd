@@ -97,7 +97,7 @@ The experiment has 4 conditions resulting from the 2×2 factorial design:
 ```{r load data}
 # Load data
 data <- read.csv("/Users/rgaikw468/Documents/Personal/R-Projects/500 HU 2025 vRG/03-Lab/04_data.csv")
-cat(head(data, n = 5))
+cat(head(data, n = 5)
 ```
 
 
