@@ -94,10 +94,10 @@ The experiment has 4 conditions resulting from the 2×2 factorial design:
 
 3)	For each condition list the means, standard deviations, and standard error for the conditions for time and money spent. Please note that means you should have several sets of M, SD, and SE. Be sure you name the sets of means, sd, and se different things so you can use them later.
 
-```{r load data}
+```{r load_data}
 # Load data
 data <- read.csv("/Users/rgaikw468/Documents/Personal/R-Projects/500 HU 2025 vRG/03-Lab/04_data.csv")
-cat(head(data, n = 5)
+head(data, n = 5)
 ```
 
 
