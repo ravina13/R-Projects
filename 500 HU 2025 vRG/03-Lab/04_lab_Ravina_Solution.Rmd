@@ -1,6 +1,6 @@
 ---
 title: "Introduction to Data Analytics 2"
-author: "Enter Your Name"
+author: "Ravina Gaikwad"
 date: "`r Sys.Date()`"
 output: 
   word_document:
@@ -38,168 +38,354 @@ Each participant was then measured on:
 
 1)	What would be one possible null hypothesis based on this study?
 
-**Null Hypotheses to Consider:**
-- H₀₁: There is no difference in money spent between purchasing at a store versus online, regardless of retailer (same vs. different).
-- H₀₂: There is no difference in time spent browsing online between consumers who buy from the same retailer versus a different retailer.
-- H₀₃: There is no interaction effect between where the purchase is made (store/online) and retailer choice (same/different) on money spent or time spent.
+**RG Answer**
+- H₀: There is no difference in money spent between purchasing at a store versus online, regardless of retailer (same vs. different).
+
+The null hypothesis would be that there is no real difference in how much money people spend or how much time they take, whether they buy from the same store they looked at or from a different store. Basically, we're saying that where people buy (online vs physical store) and whether they switch retailers doesn't actually change their spending or time patterns
 
 2)	What would be one possible alternative hypothesis based on this study?
 
-**Alternative Hypotheses to Consider:**
-- H₁₁: Money spent differs significantly between store purchases and online purchases, with store purchases resulting in higher spending due to pseudo-showrooming behavior.
-- H₁₂: Time spent browsing online is significantly different depending on whether consumers buy from the same retailer or a different retailer, with same-retailer purchases involving less browsing time.
-- H₁₃: There is a significant interaction effect where the difference in money/time between store and online purchases depends on retailer choice (same vs. different).
+**RG Answer**
+- H₁ = at least one of the group averages is different from the others.
+
+The alternative hypothesis would be that there IS a difference - that people who do pseudo-showrooming (looking at one store but buying from another) actually do spend different amounts of money or time compared to people who just buy from the same place they looked. So we're predicting that the shopping behavior actually matters and creates different outcomes.
 
 3)	Who are they sampling in this study?
 
-**Possible Answers:**
-- They are sampling individuals who exhibit pseudo-showrooming behavior—consumers who browse or inspect products across different retail channels (online and physical stores) and may purchase from the same or different retailers.
+**RG Answer**
+
+- The researchers are looking at regular shoppers who use both physical stores and online shopping. From the data, it looks like 200 poeple participated. These people might be who go to a store to check out a product in person, and then decide whether to buy it there or go online to buy it (maybe from the same company or maybe from a competitor).
 
 4)	Who is the intended population in this study?
 
-**Answer (based on sample #2):**
-The intended population is all consumers who engage in pseudo-showrooming behavior—that is, all individuals in the broader market who inspect or research products across different retail channels (online and physical stores) before making purchase decisions, and who may purchase from the same or different retailers across these channels. This represents the general population of omni-channel shoppers that multi-channel retailers aim to understand and serve.
+**RG Answer**
+The population they're trying to learn about is basically all modern shoppers who use multiple channels to shop - people who don't just shop online OR in stores, but mix both. This includes pretty much anyone who might browse in a physical store but then order online, or who compares prices across different retailers. So it's trying to understand shopping habits for most people in today's retail environment.
 
 5)	Give an example of type 1 error based on this study (do not just define, explain in context how it might have happened here).
 
-**Answer:**
-A Type 1 error (false positive) would occur if we conclude that store purchases lead to significantly higher spending than online purchases when, in reality, there is no true difference in the population. For example, we might reject the null hypothesis and claim that "pseudo-showrooming results in higher spending at physical stores" when in reality, the observed difference in our sample of 200 consumers was due to random sampling variation or chance. This could lead retailers to incorrectly invest in store-based product placement strategies based on a spurious finding.
+**RG Answer**
+A Type 1 error is when we think we found something real but it's actually just a coincidence. In this study, that would mean the researchers conclude that pseudo-showrooming makes people spend less money, so they tell stores to change their strategies. But actually, maybe the people in the "online-different" group just happened to be more budget-conscious shoppers by random chance when they were collecting data. So stores would change their whole business strategy based on a pattern that doesn't really exist, which could waste money and hurt sales. It's like thinking you found a pattern when really it was just random luck in who happened to be in your study.
 
 6)	Give an example of type 2 error based on this study (do not just define, explain in context how it might have happened here).
 
-**Answer:**
-A Type 2 error (false negative) would occur if we fail to reject the null hypothesis when there actually IS a true difference in the population. For instance, we might conclude "there is no significant difference in money spent between store and online purchases" when, in reality, pseudo-showrooming behavior does genuinely result in higher spending at physical stores in the broader population. This could happen if our sample size of 200 was insufficient to detect the true effect, or if there was high variability in spending across consumers. This error could cause retailers to miss out on a real opportunity to optimize their omni-channel strategy.
+**RG Answer:**
+A Type 2 error is when something real is happening but we miss it in our analysis. For this study, maybe pseudo-showrooming actually DOES make people more efficient shoppers who spend less time and money, which would be really useful information for stores to know. But if the researchers didn't have enough people in their study, or if people's shopping habits varied a lot, the statistics might not show a significant result. So the researchers would say "we didn't find anything" and stores would miss out on important insights about customer behavior. They'd keep doing business as usual when they could have been optimizing their strategy.
 
 # Part 2: Use the 04_data.csv to complete this portion.
 
 ```{r import-data}
-
+data <- read.csv("/Users/rgaikw468/Documents/Personal/R-Projects/500 HU 2025 vRG/03-Lab/04_data.csv")
+head(data)
+str(data)
 ```
 
 1)	For each IV list the levels (next to a, b):
 
-    a.	Where bought: **Level 1: Store | Level 2: Online**
-    
-    b.	Who bought: **Level 1: Same (retailer) | Level 2: Different (retailer)**
+**RG Answer:**
+
+a. Where bought: **online, store**
+
+b. Who bought: **different, same**
     
 2)	What are the conditions in this experiment?
 
-**Answer:**
-The experiment has 4 conditions resulting from the 2×2 factorial design:
+**RG Answer:**
+There are 4 different conditions because we have 2 independent variables with 2 levels each (2 x 2 = 4 conditions):
 
-1. **Online + Different retailer** - Consumers who purchased online from a different retailer than where they browsed
-2. **Online + Same retailer** - Consumers who purchased online from the same retailer where they browsed
-3. **Store + Different retailer** - Consumers who purchased at a physical store from a different retailer than where they browsed online
-4. **Store + Same retailer** - Consumers who purchased at a physical store from the same retailer where they browsed online
+1. **Online + Different** - People who looked at a product and then bought a different product online
+2. **Online + Same** - People who bought the same product they looked at, but online
+3. **Store + Different** - People who looked at a product and bought a different one in the physical store
+4. **Store + Same** - People who bought the same product they looked at, in the physical store
 
 3)	For each condition list the means, standard deviations, and standard error for the conditions for time and money spent. Please note that means you should have several sets of M, SD, and SE. Be sure you name the sets of means, sd, and se different things so you can use them later.
 
-```{r load_data}
-# Load data
-data <- read.csv("/Users/rgaikw468/Documents/Personal/R-Projects/500 HU 2025 vRG/03-Lab/04_data.csv")
-head(data, n = 5)
-```
-
-
 ```{r descriptives}
-# Load data
-data <- read.csv("/Users/rgaikw468/Downloads/04_data.csv")
+# 4 groups/conditions
+online_different <- data[data$where_bought == "online" & data$who_bought == "different", ]
+online_same <- data[data$where_bought == "online" & data$who_bought == "same", ]
+store_different <- data[data$where_bought == "store" & data$who_bought == "different", ]
+store_same <- data[data$where_bought == "store" & data$who_bought == "same", ]
 
-# Online + Different retailer
-online_diff_money <- data$money[data$where_bought == "online" & data$who_bought == "different"]
-online_diff_time <- data$time[data$where_bought == "online" & data$who_bought == "different"]
+# Now calculate statistics for Online + Different
+n_online_diff <- nrow(online_different)
+mean_money_online_diff <- mean(online_different$money)
+sd_money_online_diff <- sd(online_different$money)
+se_money_online_diff <- sd_money_online_diff / sqrt(n_online_diff)
 
-M_online_diff_money <- mean(online_diff_money)
-SD_online_diff_money <- sd(online_diff_money)
-SE_online_diff_money <- SD_online_diff_money / sqrt(length(online_diff_money))
+mean_time_online_diff <- mean(online_different$time)
+sd_time_online_diff <- sd(online_different$time)
+se_time_online_diff <- sd_time_online_diff / sqrt(n_online_diff)
 
-M_online_diff_time <- mean(online_diff_time)
-SD_online_diff_time <- sd(online_diff_time)
-SE_online_diff_time <- SD_online_diff_time / sqrt(length(online_diff_time))
+# Online + Same
+n_online_same <- nrow(online_same)
+mean_money_online_same <- mean(online_same$money)
+sd_money_online_same <- sd(online_same$money)
+se_money_online_same <- sd_money_online_same / sqrt(n_online_same)
 
-# Online + Same retailer
-online_same_money <- data$money[data$where_bought == "online" & data$who_bought == "same"]
-online_same_time <- data$time[data$where_bought == "online" & data$who_bought == "same"]
+mean_time_online_same <- mean(online_same$time)
+sd_time_online_same <- sd(online_same$time)
+se_time_online_same <- sd_time_online_same / sqrt(n_online_same)
 
-M_online_same_money <- mean(online_same_money)
-SD_online_same_money <- sd(online_same_money)
-SE_online_same_money <- SD_online_same_money / sqrt(length(online_same_money))
+# Store + Different
+n_store_diff <- nrow(store_different)
+mean_money_store_diff <- mean(store_different$money)
+sd_money_store_diff <- sd(store_different$money)
+se_money_store_diff <- sd_money_store_diff / sqrt(n_store_diff)
 
-M_online_same_time <- mean(online_same_time)
-SD_online_same_time <- sd(online_same_time)
-SE_online_same_time <- SD_online_same_time / sqrt(length(online_same_time))
+mean_time_store_diff <- mean(store_different$time)
+sd_time_store_diff <- sd(store_different$time)
+se_time_store_diff <- sd_time_store_diff / sqrt(n_store_diff)
 
-# Store + Different retailer
-store_diff_money <- data$money[data$where_bought == "store" & data$who_bought == "different"]
-store_diff_time <- data$time[data$where_bought == "store" & data$who_bought == "different"]
+# Store + Same
+n_store_same <- nrow(store_same)
+mean_money_store_same <- mean(store_same$money)
+sd_money_store_same <- sd(store_same$money)
+se_money_store_same <- sd_money_store_same / sqrt(n_store_same)
 
-M_store_diff_money <- mean(store_diff_money)
-SD_store_diff_money <- sd(store_diff_money)
-SE_store_diff_money <- SD_store_diff_money / sqrt(length(store_diff_money))
+mean_time_store_same <- mean(store_same$time)
+sd_time_store_same <- sd(store_same$time)
+se_time_store_same <- sd_time_store_same / sqrt(n_store_same)
 
-M_store_diff_time <- mean(store_diff_time)
-SD_store_diff_time <- sd(store_diff_time)
-SE_store_diff_time <- SD_store_diff_time / sqrt(length(store_diff_time))
+cat("ONLINE + DIFFERENT (n =", n_online_diff, "):\n")
+cat("  Money: M =", round(mean_money_online_diff, 2), ", SD =", round(sd_money_online_diff, 2), ", SE =", round(se_money_online_diff, 2), "\n")
+cat("  Time:  M =", round(mean_time_online_diff, 2), ", SD =", round(sd_time_online_diff, 2), ", SE =", round(se_time_online_diff, 2), "\n\n")
 
-# Store + Same retailer
-store_same_money <- data$money[data$where_bought == "store" & data$who_bought == "same"]
-store_same_time <- data$time[data$where_bought == "store" & data$who_bought == "same"]
+cat("ONLINE + SAME (n =", n_online_same, "):\n")
+cat("  Money: M =", round(mean_money_online_same, 2), ", SD =", round(sd_money_online_same, 2), ", SE =", round(se_money_online_same, 2), "\n")
+cat("  Time:  M =", round(mean_time_online_same, 2), ", SD =", round(sd_time_online_same, 2), ", SE =", round(se_time_online_same, 2), "\n\n")
 
-M_store_same_money <- mean(store_same_money)
-SD_store_same_money <- sd(store_same_money)
-SE_store_same_money <- SD_store_same_money / sqrt(length(store_same_money))
+cat("STORE + DIFFERENT (n =", n_store_diff, "):\n")
+cat("  Money: M =", round(mean_money_store_diff, 2), ", SD =", round(sd_money_store_diff, 2), ", SE =", round(se_money_store_diff, 2), "\n")
+cat("  Time:  M =", round(mean_time_store_diff, 2), ", SD =", round(sd_time_store_diff, 2), ", SE =", round(se_time_store_diff, 2), "\n\n")
 
-M_store_same_time <- mean(store_same_time)
-SD_store_same_time <- sd(store_same_time)
-SE_store_same_time <- SD_store_same_time / sqrt(length(store_same_time))
-
-# Display summary
-cat("MONEY SPENT STATISTICS\n")
-cat("Online + Different: M =", round(M_online_diff_money, 2), ", SD =", round(SD_online_diff_money, 2), ", SE =", round(SE_online_diff_money, 2), "\n")
-cat("Online + Same:      M =", round(M_online_same_money, 2), ", SD =", round(SD_online_same_money, 2), ", SE =", round(SE_online_same_money, 2), "\n")
-cat("Store + Different:  M =", round(M_store_diff_money, 2), ", SD =", round(SD_store_diff_money, 2), ", SE =", round(SE_store_diff_money, 2), "\n")
-cat("Store + Same:       M =", round(M_store_same_money, 2), ", SD =", round(SD_store_same_money, 2), ", SE =", round(SE_store_same_money, 2), "\n\n")
-
-cat("TIME SPENT STATISTICS\n")
-cat("Online + Different: M =", round(M_online_diff_time, 2), ", SD =", round(SD_online_diff_time, 2), ", SE =", round(SE_online_diff_time, 2), "\n")
-cat("Online + Same:      M =", round(M_online_same_time, 2), ", SD =", round(SD_online_same_time, 2), ", SE =", round(SE_online_same_time, 2), "\n")
-cat("Store + Different:  M =", round(M_store_diff_time, 2), ", SD =", round(SD_store_diff_time, 2), ", SE =", round(SE_store_diff_time, 2), "\n")
-cat("Store + Same:       M =", round(M_store_same_time, 2), ", SD =", round(SD_store_same_time, 2), ", SE =", round(SE_store_same_time, 2), "\n")
+cat("STORE + SAME (n =", n_store_same, "):\n")
+cat("  Money: M =", round(mean_money_store_same, 2), ", SD =", round(sd_money_store_same, 2), ", SE =", round(se_money_store_same, 2), "\n")
+cat("  Time:  M =", round(mean_time_store_same, 2), ", SD =", round(sd_time_store_same, 2), ", SE =", round(se_time_store_same, 2), "\n")
 ```
+**RG Answer:**
+You'll find Mean(M), Standard Deviation(SD) and Standard Error(SE) for each conditions per time and money spent below:
+
+ONLINE + DIFFERENT (n = 50 ):
+  Money: M = 25.38 , SD = 2.81 , SE = 0.4 
+  Time:  M = 10.05 , SD = 2.75 , SE = 0.39 
+
+ONLINE + SAME (n = 50 ):
+  Money: M = 25.13 , SD = 3.26 , SE = 0.46 
+  Time:  M = 10.52 , SD = 3.03 , SE = 0.43 
+
+STORE + DIFFERENT (n = 50 ):
+  Money: M = 34.7 , SD = 3.05 , SE = 0.43 
+  Time:  M = 15.33 , SD = 2.66 , SE = 0.38 
+
+STORE + SAME (n = 50 ):
+  Money: M = 34.88 , SD = 2.74 , SE = 0.39 
+  Time:  M = 20.1 , SD = 2.91 , SE = 0.41 
+
+
 
 4)	Which condition appears to have the best model fit using the mean as the model (i.e. smallest error) for time?
+
+```{r best-fit}
+# Compare the standard errors for time
+cat("Standard Errors for TIME across conditions:\n")
+cat("Online + Different: SE =", round(se_time_online_diff, 2), "\n")
+cat("Online + Same:      SE =", round(se_time_online_same, 2), "\n")
+cat("Store + Different:  SE =", round(se_time_store_diff, 2), "\n")
+cat("Store + Same:       SE =", round(se_time_store_same, 2), "\n")
+```
+**RG Answer:**
+
+The condition with the smallest standard error for time is **Store + Different** with SE = `r round(se_time_store_diff, 2)`. **Store + Different** seems to be the best fit.
 
 5)	What are the df for each condition?
 
 ```{r df}
+# Degrees of freedom is always n - 1 for each group
+df_online_diff <- n_online_diff - 1
+df_online_same <- n_online_same - 1
+df_store_diff <- n_store_diff - 1
+df_store_same <- n_store_same - 1
 
+cat("Degrees of Freedom (df = n - 1):\n")
+cat("Online + Different: df =", df_online_diff, "\n")
+cat("Online + Same:      df =", df_online_same, "\n")
+cat("Store + Different:  df =", df_store_diff, "\n")
+cat("Store + Same:       df =", df_store_same, "\n")
 ```
+**RG Answer:**
+Since degrees of freedom is n-1 for each group, df is as follows:
+Online + Different: df = 49 
+Online + Same:      df = 49 
+Store + Different:  df = 49 
+Store + Same:       df = 49 
 
 6)	What is the confidence interval (95%) for the means?
 
 ```{r conf-interval}
 ##money
 
+# For Online + Different
+ci_lower_money_online_diff <- mean_money_online_diff - qt(0.975, df_online_diff) * se_money_online_diff
+ci_upper_money_online_diff <- mean_money_online_diff + qt(0.975, df_online_diff) * se_money_online_diff
+
+# For Online + Same
+ci_lower_money_online_same <- mean_money_online_same - qt(0.975, df_online_same) * se_money_online_same
+ci_upper_money_online_same <- mean_money_online_same + qt(0.975, df_online_same) * se_money_online_same
+
+# For Store + Different
+ci_lower_money_store_diff <- mean_money_store_diff - qt(0.975, df_store_diff) * se_money_store_diff
+ci_upper_money_store_diff <- mean_money_store_diff + qt(0.975, df_store_diff) * se_money_store_diff
+
+# For Store + Same
+ci_lower_money_store_same <- mean_money_store_same - qt(0.975, df_store_same) * se_money_store_same
+ci_upper_money_store_same <- mean_money_store_same + qt(0.975, df_store_same) * se_money_store_same
+
+cat("95% Confidence Intervals for MONEY:\n")
+cat("Online + Different: [", round(ci_lower_money_online_diff, 2), ",", round(ci_upper_money_online_diff, 2), "]\n")
+cat("Online + Same:      [", round(ci_lower_money_online_same, 2), ",", round(ci_upper_money_online_same, 2), "]\n")
+cat("Store + Different:  [", round(ci_lower_money_store_diff, 2), ",", round(ci_upper_money_store_diff, 2), "]\n")
+cat("Store + Same:       [", round(ci_lower_money_store_same, 2), ",", round(ci_upper_money_store_same, 2), "]\n\n")
+
 ##time
 
+# For Online + Different
+ci_lower_time_online_diff <- mean_time_online_diff - qt(0.975, df_online_diff) * se_time_online_diff
+ci_upper_time_online_diff <- mean_time_online_diff + qt(0.975, df_online_diff) * se_time_online_diff
+
+# For Online + Same
+ci_lower_time_online_same <- mean_time_online_same - qt(0.975, df_online_same) * se_time_online_same
+ci_upper_time_online_same <- mean_time_online_same + qt(0.975, df_online_same) * se_time_online_same
+
+# For Store + Different
+ci_lower_time_store_diff <- mean_time_store_diff - qt(0.975, df_store_diff) * se_time_store_diff
+ci_upper_time_store_diff <- mean_time_store_diff + qt(0.975, df_store_diff) * se_time_store_diff
+
+# For Store + Same
+ci_lower_time_store_same <- mean_time_store_same - qt(0.975, df_store_same) * se_time_store_same
+ci_upper_time_store_same <- mean_time_store_same + qt(0.975, df_store_same) * se_time_store_same
+
+cat("95% Confidence Intervals for TIME:\n")
+cat("Online + Different: [", round(ci_lower_time_online_diff, 2), ",", round(ci_upper_time_online_diff, 2), "]\n")
+cat("Online + Same:      [", round(ci_lower_time_online_same, 2), ",", round(ci_upper_time_online_same, 2), "]\n")
+cat("Store + Different:  [", round(ci_lower_time_store_diff, 2), ",", round(ci_upper_time_store_diff, 2), "]\n")
+cat("Store + Same:       [", round(ci_lower_time_store_same, 2), ",", round(ci_upper_time_store_same, 2), "]\n")
+
 ```
+**RG Answer:**
+
+95% Confidence Intervals for Money are as follows:
+Online + Different: [ 24.58 , 26.18 ]
+Online + Same:      [ 24.21 , 26.06 ]
+Store + Different:  [ 33.84 , 35.57 ]
+Store + Same:       [ 34.1 , 35.66 ]
+
+
+95% Confidence Intervals for Time are as follows:
+Online + Different: [ 9.27 , 10.83 ]
+Online + Same:      [ 9.66 , 11.38 ]
+Store + Different:  [ 14.58 , 16.09 ]
+Store + Same:       [ 19.27 , 20.93 ]
+
 
 7)	Use the MOTE library to calculate the effect size for the difference between money spent for the following comparisons (that means you'll have to do this twice):
 
 ```{r MOTE}
+#install.packages("MOTE")
+library(MOTE)
 ##Store versus online when bought at the same retailer
+
+effect_same_retailer <- d.ind.t(
+  m1 = mean_money_store_same,
+  m2 = mean_money_online_same,
+  sd1 = sd_money_store_same,
+  sd2 = sd_money_online_same,
+  n1 = n_store_same,
+  n2 = n_online_same,
+  a = 0.05
+)
+
+cat("For Store vs Online (when buying from SAME retailer)\n")
+cat("Cohen's d =", round(effect_same_retailer$d, 3), "\n\n")
 
 ##Store versus online when bought at a different retailer
 
+effect_diff_retailer <- d.ind.t(
+  m1 = mean_money_store_diff,
+  m2 = mean_money_online_diff,
+  sd1 = sd_money_store_diff,
+  sd2 = sd_money_online_diff,
+  n1 = n_store_diff,
+  n2 = n_online_diff,
+  a = 0.05
+)
+
+cat("For Store vs Online (when buying from DIFFERENT retailer)\n")
+cat("Cohen's d =", round(effect_diff_retailer$d, 3), "\n")
+
 ```
+**RG Answer:**
+Using MOTE we find that for Store vs Online-SAME retailer, cohen's d = 3.24 & for Store vs Online-DIFFERENT retailer, cohen's d = 3.18.
+
 
 8)	What can you determine about the effect size in the experiment - is it small, medium or large?
+
+**RG Answer:**
+
+Considering Cohen's d, the guidelines are:
+- Small effect: d = 0.2
+- Medium effect: d = 0.5
+- Large effect: d = 0.8
+
+For Same Retailer - Store vs Online: Cohen's d = `r round(effect_same_retailer$d, 2)`
+
+This is way bigger than 0.8, so it's a **very large effect**. This means there's a huge difference in how much money people spend when they buy in-store versus online, even when they're buying from the same company.
+
+For Different Retailer - Store vs Online: Cohen's d = `r round(effect_diff_retailer$d, 2)`
+
+This is also way above 0.8, so again it's a **very large effect**. Whether people are switching retailers or not, buying in a physical store leads to spending way more money than buying online.
+
+Both of these effect sizes are really big, which means the difference between store and online shopping is not just statistically significant - it's also meaningful.
 
 9)	How many people did we need in the study for each comparison?
 
 ```{r pwr}
+#install.packages("pwr")
+library(pwr)
 ##Store versus online when bought at the same retailer
 
+power_same <- pwr.t.test(
+  d = effect_same_retailer$d,
+  sig.level = 0.05,
+  power = 0.80,
+  type = "two.sample",
+  alternative = "two.sided"
+)
+
+cat("For Store vs Online (Same Retailer)\n")
+cat("Sample size needed per group:", ceiling(power_same$n), "\n")
+cat("Total sample size needed:", ceiling(power_same$n) * 2, "\n\n")
+
 ##Store versus online when bought at a different retailer
+#considering power of 0.80 and significance level of 0.05
+power_diff <- pwr.t.test(
+  d = effect_diff_retailer$d,
+  sig.level = 0.05,
+  power = 0.80,
+  type = "two.sample",
+  alternative = "two.sided"
+)
+
+cat("For Store vs Online (Different Retailer)\n")
+cat("Sample size needed per group:", ceiling(power_diff$n), "\n")
+cat("Total sample size needed:", ceiling(power_diff$n) * 2, "\n\n")
+
+cat("Our actual sample sizes:\n")
+cat("Online groups: n =", n_online_same, "\n")
+cat("Store groups: n =", n_store_same, "\n")
 
 ```
+**RG Answer:**
+
+According to the power analysis, we only needed about **`r ceiling(power_same$n)` people per group** (so `r ceiling(power_same$n) * 2` people total) to detect these effects with 80% power. Since we actually have 50 people per group (200 total), looks like we have way more than enough participants.
+
+This makes sense because our effect sizes were so large - when there's a really big difference between groups, you don't need as many people to be confident you'll find it. Study seems to be "overpowered" which means we could have used fewer people and still found these results.
