@@ -1,0 +1,267 @@
+---
+title: "Statistical Modeling and Graphing"
+author: "Ravina Gaikwad"
+date: "`r Sys.Date()`"
+output:
+  word_document:
+    reference_docx: default
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r machine-info, echo=FALSE, results='asis'}
+cat("**Machine:**", paste0(Sys.info()['nodename'], " - ", Sys.info()['sysname'], " ", Sys.info()['release']), "\n\n")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Set machine info for document
+machine_info <- paste0(Sys.info()['nodename'], ' - ', Sys.info()['sysname'], ' ', Sys.info()['release'])
+```
+
+```{r load-and-explore-data, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8.4, fig.height=8.4, fig.align='center'}
+# Load required libraries
+library(rio)
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+
+# Load the lab dataset
+labdata <- import("/Users/rgaikw468/Downloads/05_data.csv")
+
+# Factor categorical variables
+labdata$biz_focus <- factor(labdata$biz_focus,
+                            levels = c("traditional", "forward"),
+                            labels = c("Traditional", "Forward Thinking"))
+labdata$internet <- factor(labdata$internet,
+                          levels = c("low", "medium", "high"),
+                          labels = c("Low", "Medium", "High"))
+
+# Quick visualizations to understand the data
+
+# Combine all plots in one layout (2x2 grid)
+par(mfrow = c(2, 2))
+
+# 1. Distribution of sales at Time 1
+hist(labdata$time.1, main = "Sales at Time 1", xlab = "Sales Score", 
+     col = "lightblue", border = "black")
+
+# 2. Distribution of sales at Time 2
+hist(labdata$time.2, main = "Sales at Time 2", xlab = "Sales Score", 
+     col = "lightcoral", border = "black")
+
+# 3. Boxplot comparing business focus
+boxplot(time.2 ~ biz_focus, data = labdata, 
+        main = "Sales at Time 2 by Business Focus",
+        xlab = "Business Focus", ylab = "Sales Score",
+        col = c("gray70", "gray30"))
+
+# 4. Boxplot comparing internet use levels
+boxplot(time.2 ~ internet, data = labdata,
+        main = "Sales at Time 2 by Internet Use",
+        xlab = "Internet Use Level", ylab = "Sales Score",
+        col = c("lightgray", "gray", "darkgray"))
+
+# Reset to single plot
+par(mfrow = c(1, 1))
+
+# Create cleanup theme for professional graphs
+cleanup <- theme(panel.grid.major = element_blank(),
+                panel.grid.minor = element_blank(),
+                panel.background = element_blank(),
+                axis.line.x = element_line(color = 'black'),
+                axis.line.y = element_line(color = 'black'),
+                legend.key = element_rect(fill = 'white'),
+                text = element_text(size = 15))
+```
+
+*Citation*: Trends in Internet-based business-to-business marketing
+
+*Abstract*: The Internet is changing the transactional paradigms under which businesses-to-business marketers operate. Business-to-business marketers that take advantage of the operational efficiencies and effectiveness that emerge from utilizing the Internet in transactions are out performing firms that utilize traditional transactional processes. As an example, Dell computers, by utilizing business-to-business processes that take advantage of the Internet, has gained the largest market share in the PC business when compared to traditional manufacturers such as Compaq. This paper first examines the genesis of the Internet movement in business-to-business markets. The long-term impact of the increase of business-to-business utilization of the Internet on the marketing theory and marketing process is then discussed. Finally, managerial implications and directions for future research are highlighted.
+
+Dataset includes:
+
+    1)  Business marketing focus - traditional or forward thinking.
+    
+    2)	Internet use - low, medium, or high levels of business marketing use on the internet.
+    
+    3)	Time _ 1 - sales scores at the first measurement time.
+    
+    4)	Time _ 2 - sales scores at the second measurement time
+
+On all of these questions, be sure to include a coherent label for the X and Y axes.  You should change them to be "professional looking" (i.e. Proper Case, explain the variable listed, and could be printed in a journal).  The following will be assessed:
+
+    1)	Is it readable?
+    
+    2)	Is X-axis labeled appropriately?
+    
+    3)	Is Y-axis labeled appropriately?
+    
+    4)	Is it the right graph?
+    
+    5) 	Do the labels in the legend look appropriate?
+    
+    6)	Are there error bars when appropriate?
+
+We won't grade for color of bars or background color, but you should consider that these things are usually printed in black/white - so be sure you know how to change those values as well as get rid of that grey background.
+
+Please note that each subpoint (i.e. a, b) indicates a different chart.
+
+
+1)	Make a simple histogram using ggplot:
+
+    a.	Sales at time 1
+    
+```{r hist1, fig.width=7, fig.height=5}
+ggplot(labdata, aes(x = time.1)) +
+  geom_histogram(binwidth = 0.5, color = "black", fill = "gray70") +
+  labs(x = "Sales Score at Time 1", 
+       y = "Frequency",
+       title = "Distribution of Sales Scores at Time 1") +
+  cleanup
+```
+
+The above histogram (1a) shows the frequency distribution of sales scores at Time 1, this shows the overall pattern & spread of initial sales performance across all companies.
+
+
+    b.	Sales at time 2
+
+```{r hist2, fig.width=7, fig.height=5}
+ggplot(labdata, aes(x = time.2)) +
+  geom_histogram(binwidth = 0.5, color = "black", fill = "gray70") +
+  labs(x = "Sales Score at Time 2", 
+       y = "Frequency",
+       title = "Distribution of Sales Scores at Time 2") +
+  cleanup
+```
+
+The above histogram (1b) shows the frequency distribution of sales scores at Time 2, showing how sales performance changed in the follow-up measurement period.
+
+
+2)	Make a bar chart with two independent variables:
+
+    a.	Business focus, internet, DV: sales at time 2
+
+```{r bar1, fig.width=8, fig.height=6}
+# Calculate means and standard errors
+summary_data <- labdata %>%
+  group_by(biz_focus, internet) %>%
+  summarise(
+    mean_sales = mean(time.2, na.rm = TRUE),
+    se = sd(time.2, na.rm = TRUE) / sqrt(n()),
+    .groups = 'drop'
+  )
+
+ggplot(summary_data, aes(x = biz_focus, y = mean_sales, fill = internet)) +
+  geom_bar(stat = "identity", position = position_dodge(0.9), color = "black") +
+  geom_errorbar(aes(ymin = mean_sales - se, ymax = mean_sales + se),
+                width = 0.2, position = position_dodge(0.9)) +
+  scale_fill_manual(values = c("white", "gray50", "gray20")) +
+  labs(x = "Business Focus", 
+       y = "Mean Sales Score at Time 2",
+       fill = "Internet Use Level") +
+  cleanup
+```
+
+This bar chart illustrates the interaction between business focus type and internet use level on Time 2 sales performance, with error bars indicating the variability within each group.
+
+
+3)	Make a bar chart with two independent variables: 
+
+    a.	Time (time 1, time 2), Business focus, DV: is sales from time 1 and 2
+
+```{r bar2, fig.width=8, fig.height=6}
+# Reshape data for time comparison
+long_data <- labdata %>%
+  pivot_longer(cols = c(time.1, time.2), 
+               names_to = "Time", 
+               values_to = "Sales") %>%
+  mutate(Time = factor(Time, 
+                       levels = c("time.1", "time.2"),
+                       labels = c("Time 1", "Time 2")))
+
+# Calculate means and standard errors
+summary_time <- long_data %>%
+  group_by(Time, biz_focus) %>%
+  summarise(
+    mean_sales = mean(Sales, na.rm = TRUE),
+    se = sd(Sales, na.rm = TRUE) / sqrt(n()),
+    .groups = 'drop'
+  )
+
+ggplot(summary_time, aes(x = Time, y = mean_sales, fill = biz_focus)) +
+  geom_bar(stat = "identity", position = position_dodge(0.9), color = "black") +
+  geom_errorbar(aes(ymin = mean_sales - se, ymax = mean_sales + se),
+                width = 0.2, position = position_dodge(0.9)) +
+  scale_fill_manual(values = c("white", "gray40")) +
+  labs(x = "Time Period", 
+       y = "Mean Sales Score",
+       fill = "Business Focus") +
+  cleanup
+```
+
+This bar chart compares sales performance across the two time periods for traditional versus forward-thinking business focus groups, showing how each group's performance changed over time.
+
+
+4)	Make a simple line graph:
+
+    a.	Time (time 1, time 2), DV: is sales from time 1 and 2 
+
+```{r line, fig.width=7, fig.height=5}
+# Calculate overall means and standard errors by time
+summary_overall <- long_data %>%
+  group_by(Time) %>%
+  summarise(
+    mean_sales = mean(Sales, na.rm = TRUE),
+    se = sd(Sales, na.rm = TRUE) / sqrt(n()),
+    .groups = 'drop'
+  )
+
+ggplot(summary_overall, aes(x = Time, y = mean_sales, group = 1)) +
+  geom_line(linewidth = 1.2) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = mean_sales - se, ymax = mean_sales + se),
+                width = 0.1) +
+  labs(x = "Time Period", 
+       y = "Mean Sales Score") +
+  cleanup
+```
+
+This line graph demonstrates the overall trend in mean sales scores from Time 1 to Time 2 across all companies, regardless of business focus or internet use level.
+
+
+5)	Make a simple scatterplot:
+    
+    a.	Sales at Time 1, Time 2
+
+```{r scatter1, fig.width=7, fig.height=6}
+ggplot(labdata, aes(x = time.1, y = time.2)) +
+  geom_point(size = 2, alpha = 0.6) +
+  labs(x = "Sales Score at Time 1", 
+       y = "Sales Score at Time 2") +
+  cleanup
+```
+
+This scatterplot shows the relationship between sales scores at Time 1 and Time 2, allowing us to examine whether companies with higher initial sales also achieved higher sales in the follow-up period.
+
+
+6)	Make a grouped scatterplot:
+
+    a.	Sales at time 1 and 2, Business focus
+
+```{r scatter2, fig.width=8, fig.height=6}
+ggplot(labdata, aes(x = time.1, y = time.2, shape = biz_focus)) +
+  geom_point(size = 2.5, alpha = 0.7) +
+  scale_shape_manual(values = c(1, 16)) +
+  labs(x = "Sales Score at Time 1", 
+       y = "Sales Score at Time 2",
+       shape = "Business Focus") +
+  cleanup
+```
+
+This grouped scatterplot examines the relationship between Time 1 and Time 2 sales scores separately for traditional and forward-thinking companies, revealing whether the two business focus types show different patterns in sales performance over time.
+
+
+
+

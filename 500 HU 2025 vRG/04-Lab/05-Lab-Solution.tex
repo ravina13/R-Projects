@@ -1,0 +1,425 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Statistical Modeling and Graphing},
+  pdfauthor={Ravina Gaikwad},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Statistical Modeling and Graphing}
+\author{Ravina Gaikwad}
+\date{2025-12-20}
+
+\begin{document}
+\maketitle
+
+\textbf{Machine:} HQSML-FVFGF5W8Q05N - Darwin 24.6.0
+
+\begin{center}\includegraphics{05-Lab-Solution_files/figure-latex/load-and-explore-data-1} \end{center}
+
+\emph{Citation}: Trends in Internet-based business-to-business marketing
+
+\emph{Abstract}: The Internet is changing the transactional paradigms
+under which businesses-to-business marketers operate.
+Business-to-business marketers that take advantage of the operational
+efficiencies and effectiveness that emerge from utilizing the Internet
+in transactions are out performing firms that utilize traditional
+transactional processes. As an example, Dell computers, by utilizing
+business-to-business processes that take advantage of the Internet, has
+gained the largest market share in the PC business when compared to
+traditional manufacturers such as Compaq. This paper first examines the
+genesis of the Internet movement in business-to-business markets. The
+long-term impact of the increase of business-to-business utilization of
+the Internet on the marketing theory and marketing process is then
+discussed. Finally, managerial implications and directions for future
+research are highlighted.
+
+Dataset includes:
+
+\begin{verbatim}
+1)  Business marketing focus - traditional or forward thinking.
+
+2)  Internet use - low, medium, or high levels of business marketing use on the internet.
+
+3)  Time _ 1 - sales scores at the first measurement time.
+
+4)  Time _ 2 - sales scores at the second measurement time
+\end{verbatim}
+
+On all of these questions, be sure to include a coherent label for the X
+and Y axes. You should change them to be ``professional looking''
+(i.e.~Proper Case, explain the variable listed, and could be printed in
+a journal). The following will be assessed:
+
+\begin{verbatim}
+1)  Is it readable?
+
+2)  Is X-axis labeled appropriately?
+
+3)  Is Y-axis labeled appropriately?
+
+4)  Is it the right graph?
+
+5)  Do the labels in the legend look appropriate?
+
+6)  Are there error bars when appropriate?
+\end{verbatim}
+
+We won't grade for color of bars or background color, but you should
+consider that these things are usually printed in black/white - so be
+sure you know how to change those values as well as get rid of that grey
+background.
+
+Please note that each subpoint (i.e.~a, b) indicates a different chart.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  Make a simple histogram using ggplot:
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    Sales at time 1
+  \end{enumerate}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(labdata, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ time}\FloatTok{.1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"gray70"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sales Score at Time 1"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{,}
+       \AttributeTok{title =} \StringTok{"Distribution of Sales Scores at Time 1"}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{  cleanup}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{05-Lab-Solution_files/figure-latex/hist1-1.pdf}}
+
+The above histogram (1a) shows the frequency distribution of sales
+scores at Time 1, this shows the overall pattern \& spread of initial
+sales performance across all companies.
+
+\begin{verbatim}
+b.  Sales at time 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(labdata, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ time}\FloatTok{.2}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"gray70"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sales Score at Time 2"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Frequency"}\NormalTok{,}
+       \AttributeTok{title =} \StringTok{"Distribution of Sales Scores at Time 2"}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{  cleanup}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{05-Lab-Solution_files/figure-latex/hist2-1.pdf}}
+
+The above histogram (1b) shows the frequency distribution of sales
+scores at Time 2, showing how sales performance changed in the follow-up
+measurement period.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\item
+  Make a bar chart with two independent variables:
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    Business focus, internet, DV: sales at time 2
+  \end{enumerate}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate means and standard errors}
+\NormalTok{summary\_data }\OtherTok{\textless{}{-}}\NormalTok{ labdata }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(biz\_focus, internet) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{mean\_sales =} \FunctionTok{mean}\NormalTok{(time}\FloatTok{.2}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{se =} \FunctionTok{sd}\NormalTok{(time}\FloatTok{.2}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{n}\NormalTok{()),}
+    \AttributeTok{.groups =} \StringTok{\textquotesingle{}drop\textquotesingle{}}
+\NormalTok{  )}
+
+\FunctionTok{ggplot}\NormalTok{(summary\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ biz\_focus, }\AttributeTok{y =}\NormalTok{ mean\_sales, }\AttributeTok{fill =}\NormalTok{ internet)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.9}\NormalTok{), }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ mean\_sales }\SpecialCharTok{{-}}\NormalTok{ se, }\AttributeTok{ymax =}\NormalTok{ mean\_sales }\SpecialCharTok{+}\NormalTok{ se),}
+                \AttributeTok{width =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.9}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"white"}\NormalTok{, }\StringTok{"gray50"}\NormalTok{, }\StringTok{"gray20"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Business Focus"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Mean Sales Score at Time 2"}\NormalTok{,}
+       \AttributeTok{fill =} \StringTok{"Internet Use Level"}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{  cleanup}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{05-Lab-Solution_files/figure-latex/bar1-1.pdf}}
+
+This bar chart illustrates the interaction between business focus type
+and internet use level on Time 2 sales performance, with error bars
+indicating the variability within each group.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{2}
+\item
+  Make a bar chart with two independent variables:
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    Time (time 1, time 2), Business focus, DV: is sales from time 1 and
+    2
+  \end{enumerate}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Reshape data for time comparison}
+\NormalTok{long\_data }\OtherTok{\textless{}{-}}\NormalTok{ labdata }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{c}\NormalTok{(time}\FloatTok{.1}\NormalTok{, time}\FloatTok{.2}\NormalTok{), }
+               \AttributeTok{names\_to =} \StringTok{"Time"}\NormalTok{, }
+               \AttributeTok{values\_to =} \StringTok{"Sales"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Time =} \FunctionTok{factor}\NormalTok{(Time, }
+                       \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"time.1"}\NormalTok{, }\StringTok{"time.2"}\NormalTok{),}
+                       \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Time 1"}\NormalTok{, }\StringTok{"Time 2"}\NormalTok{)))}
+
+\CommentTok{\# Calculate means and standard errors}
+\NormalTok{summary\_time }\OtherTok{\textless{}{-}}\NormalTok{ long\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Time, biz\_focus) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{mean\_sales =} \FunctionTok{mean}\NormalTok{(Sales, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{se =} \FunctionTok{sd}\NormalTok{(Sales, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{n}\NormalTok{()),}
+    \AttributeTok{.groups =} \StringTok{\textquotesingle{}drop\textquotesingle{}}
+\NormalTok{  )}
+
+\FunctionTok{ggplot}\NormalTok{(summary\_time, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Time, }\AttributeTok{y =}\NormalTok{ mean\_sales, }\AttributeTok{fill =}\NormalTok{ biz\_focus)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.9}\NormalTok{), }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ mean\_sales }\SpecialCharTok{{-}}\NormalTok{ se, }\AttributeTok{ymax =}\NormalTok{ mean\_sales }\SpecialCharTok{+}\NormalTok{ se),}
+                \AttributeTok{width =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.9}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"white"}\NormalTok{, }\StringTok{"gray40"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Time Period"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Mean Sales Score"}\NormalTok{,}
+       \AttributeTok{fill =} \StringTok{"Business Focus"}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{  cleanup}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{05-Lab-Solution_files/figure-latex/bar2-1.pdf}}
+
+This bar chart compares sales performance across the two time periods
+for traditional versus forward-thinking business focus groups, showing
+how each group's performance changed over time.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{3}
+\item
+  Make a simple line graph:
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    Time (time 1, time 2), DV: is sales from time 1 and 2
+  \end{enumerate}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate overall means and standard errors by time}
+\NormalTok{summary\_overall }\OtherTok{\textless{}{-}}\NormalTok{ long\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Time) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{mean\_sales =} \FunctionTok{mean}\NormalTok{(Sales, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{se =} \FunctionTok{sd}\NormalTok{(Sales, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{n}\NormalTok{()),}
+    \AttributeTok{.groups =} \StringTok{\textquotesingle{}drop\textquotesingle{}}
+\NormalTok{  )}
+
+\FunctionTok{ggplot}\NormalTok{(summary\_overall, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Time, }\AttributeTok{y =}\NormalTok{ mean\_sales, }\AttributeTok{group =} \DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{linewidth =} \FloatTok{1.2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ mean\_sales }\SpecialCharTok{{-}}\NormalTok{ se, }\AttributeTok{ymax =}\NormalTok{ mean\_sales }\SpecialCharTok{+}\NormalTok{ se),}
+                \AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Time Period"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Mean Sales Score"}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{  cleanup}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{05-Lab-Solution_files/figure-latex/line-1.pdf}}
+
+This line graph demonstrates the overall trend in mean sales scores from
+Time 1 to Time 2 across all companies, regardless of business focus or
+internet use level.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{4}
+\item
+  Make a simple scatterplot:
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    Sales at Time 1, Time 2
+  \end{enumerate}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(labdata, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ time}\FloatTok{.1}\NormalTok{, }\AttributeTok{y =}\NormalTok{ time}\FloatTok{.2}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sales Score at Time 1"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Sales Score at Time 2"}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{  cleanup}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{05-Lab-Solution_files/figure-latex/scatter1-1.pdf}}
+
+This scatterplot shows the relationship between sales scores at Time 1
+and Time 2, allowing us to examine whether companies with higher initial
+sales also achieved higher sales in the follow-up period.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{5}
+\item
+  Make a grouped scatterplot:
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    Sales at time 1 and 2, Business focus
+  \end{enumerate}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(labdata, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ time}\FloatTok{.1}\NormalTok{, }\AttributeTok{y =}\NormalTok{ time}\FloatTok{.2}\NormalTok{, }\AttributeTok{shape =}\NormalTok{ biz\_focus)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \FloatTok{2.5}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_shape\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{16}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Sales Score at Time 1"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Sales Score at Time 2"}\NormalTok{,}
+       \AttributeTok{shape =} \StringTok{"Business Focus"}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{  cleanup}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{05-Lab-Solution_files/figure-latex/scatter2-1.pdf}}
+
+This grouped scatterplot examines the relationship between Time 1 and
+Time 2 sales scores separately for traditional and forward-thinking
+companies, revealing whether the two business focus types show different
+patterns in sales performance over time.
+
+\end{document}
